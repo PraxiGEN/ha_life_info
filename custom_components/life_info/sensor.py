@@ -47,6 +47,11 @@ class LifeInfoSensor(CoordinatorEntity[LifeInfoCoordinator], SensorEntity):
         return (self.coordinator.data or {}).get(self._account_key)
 
     @property
+    def available(self) -> bool:
+        """整体成功且本账户有读数才可用；单账户失败不影响其他账户."""
+        return super().available and self._account_key in (self.coordinator.data or {})
+
+    @property
     def native_value(self) -> Any:
         """从本账户读数取值."""
         data = self._account_data()
