@@ -1,0 +1,149 @@
+{
+  "title": "Life Info",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Select a service",
+        "description": "Choose which life info service to add",
+        "data": {
+          "service": "Service"
+        }
+      },
+      "kunlun_gas": {
+        "title": "Kunlun Gas",
+        "description": "Enter the connection details",
+        "data": {
+          "name": "Name",
+          "user_code": "Account number",
+          "region": "Region"
+        }
+      },
+      "oil_price": {
+        "title": "Fuel Price",
+        "description": "Select a province to track. ApiZero KEY is optional",
+        "data": {
+          "name": "Name",
+          "api_key": "ApiZero KEY (optional)",
+          "region": "Province"
+        }
+      }
+    },
+    "error": {
+      "invalid_region": "Please select a valid region",
+      "invalid_user_code": "Invalid account number or no matching data returned",
+      "cannot_connect": "Failed to connect. Please check and retry."
+    },
+    "abort": {
+      "already_configured": "This service is already configured. Add accounts in the entry options."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options",
+        "description": "Manage regions and polling interval",
+        "menu_options": {
+          "add_account": "Add account",
+          "remove_account": "Remove account",
+          "add_province": "Add province",
+          "remove_province": "Remove province",
+          "edit_account": "Edit entry",
+          "api_key": "ApiZero KEY",
+          "scan_interval": "Polling interval"
+        }
+      },
+      "add_account": {
+        "title": "Add account",
+        "description": "Enter the details for the new account",
+        "data": {
+          "name": "Name",
+          "user_code": "Account number",
+          "region": "Region"
+        }
+      },
+      "remove_account": {
+        "title": "Remove account",
+        "description": "At least one account must remain",
+        "data": {
+          "user_code": "Select account"
+        }
+      },
+      "scan_interval": {
+        "title": "Polling interval",
+        "data": {
+          "scan_interval": "Polling interval"
+        }
+      },
+      "add_province": {
+        "title": "Add province",
+        "description": "Enter the details for the new province",
+        "data": {
+          "name": "Name",
+          "region": "Province"
+        }
+      },
+      "remove_province": {
+        "title": "Remove province",
+        "description": "At least one province must remain",
+        "data": {
+          "region": "Select province"
+        }
+      },
+      "edit_account": {
+        "title": "Edit entry",
+        "description": "Select the account or province to edit",
+        "data": {
+          "user_code": "Select account",
+          "region": "Select province"
+        }
+      },
+      "edit_detail": {
+        "title": "Edit entry",
+        "description": "The unique identifier is fixed; other details can be updated",
+        "data": {
+          "name": "Name",
+          "region": "Region"
+        }
+      },
+      "api_key": {
+        "title": "ApiZero KEY",
+        "description": "Leave blank for anonymous quota (5/day), or enter a key for 20/day",
+        "data": {
+          "api_key": "ApiZero KEY"
+        }
+      }
+    },
+    "error": {
+      "invalid_region": "Please select a valid region",
+      "invalid_user_code": "Invalid account number or no matching data returned",
+      "cannot_connect": "Failed to connect. Check the account number and region code.",
+      "already_added": "Already added",
+      "cannot_remove_last": "At least one region must remain",
+      "invalid_account": "The selected entry no longer exists"
+    }
+  },
+  "selector": {
+    "service": {
+      "options": {
+        "kunlun_gas": "Kunlun Gas",
+        "oil_price": "Fuel Price"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "kunlun_gas_remote_meter_balance": { "name": "Meter balance" },
+      "kunlun_gas_owe_amount": { "name": "Amount owed" },
+      "kunlun_gas_account_balance": { "name": "Account balance" },
+      "kunlun_gas_meter_reading": { "name": "Meter reading" },
+      "kunlun_gas_last_communication": { "name": "Last communication" },
+      "kunlun_gas_latest_gas_fee": { "name": "Latest gas fee" },
+      "kunlun_gas_pay_permitted": { "name": "Payment permitted" },
+      "oil_price_gas92": { "name": "Gasoline 92#" },
+      "oil_price_gas95": { "name": "Gasoline 95#" },
+      "oil_price_gas98": { "name": "Gasoline 98#" },
+      "oil_price_die0": { "name": "Diesel 0#" },
+      "oil_price_adjust": { "name": "Price adjustment" }
+    }
+  }
+}
