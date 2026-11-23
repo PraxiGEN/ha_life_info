@@ -23,8 +23,7 @@ UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/144.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) "
     "NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF "
-    "WindowsWechat(0x63090a13) UnifiedPCWindowsWechat(0xf2541f38) XWEB/25819 "
-    "miniProgram/wx65cb710bcf71a067"
+    "WindowsWechat(0x63090a13) UnifiedPCWindowsWechat(0xf2541f38) XWEB/25819"
 )
 
 def build_headers(mdm_code: str) -> dict[str, str]:
