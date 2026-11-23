@@ -48,7 +48,9 @@ class OilPriceOptionsFlow(LifeInfoOptionsFlow):
             data_schema=vol.Schema({
                 vol.Optional(
                     CONF_API_KEY,
-                    default=self.config_entry.options.get(CONF_API_KEY, ""),
+                    description={
+                        "suggested_value": self.config_entry.options.get(CONF_API_KEY, "")
+                    },
                 ): str,
             }),
         )
