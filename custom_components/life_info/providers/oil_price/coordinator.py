@@ -48,22 +48,21 @@ class OilPriceCoordinator(LifeInfoCoordinator):
         return str(account[CONF_REGION])
 
     async def _fetch(self) -> dict[str, dict[str, Any]]:
-        """取数：xxapi→ApiZero→网页 逐级补价格；调价信息独立降级."""
-        prices = await self._async_prices()
-        # HA 规范：三级源全失败（无任何账户拿到有效价格）必须抛 UpdateFailed，
-        # 由协调器统一标记实体不可用、记录日志、下个周期重试；不返回空数据假装成功。
-        if self.accounts and not any(_has_prices(item) for item in prices.values()):
-            raise UpdateFailed("油价全部数据源（xxapi / ApiZero / 网页）均无有效价格")
-        adjust = await self._async_adjust()
+        """取数：网页每省只请求一次（价格兜底+消息共用），价格走三级回补."""
         slugs = [self.account_key(account) for account in self.accounts]
         web_list = await asyncio.gather(
             *(self._async_web(slug) for slug in slugs),
             return_exceptions=True,
         )
-        web_by_slug = {
+        web_by_slug: dict[str, dict[str, Any]] = {
             slug: value if isinstance(value, dict) else {}
             for slug, value in zip(slugs, web_list)
         }
+        prices = await self._async_prices(web_by_slug)
+        
+        if self.accounts and not any(_has_prices(item) for item in prices.values()):
+            raise UpdateFailed("油价全部数据源（xxapi / ApiZero / 网页）均无有效价格")
+        adjust = await self._async_adjust()
 
         data: dict[str, dict[str, Any]] = {}
         for account in self.accounts:
@@ -79,16 +78,21 @@ class OilPriceCoordinator(LifeInfoCoordinator):
             data[slug] = item
         return data
 
-    async def _async_prices(self) -> dict[str, dict[str, Any]]:
-        """价格三级冗余：主源全量失败或单省缺失时逐级回补."""
+    async def _async_prices(
+        self, web_by_slug: dict[str, dict[str, Any]]
+    ) -> dict[str, dict[str, Any]]:
+        """价格三级冗余：主源作为底稿，缺失/无效省份逐省 ApiZero→网页回补."""
         try:
-            return await async_fetch_prices(self._session)
+            result: dict[str, dict[str, Any]] = await async_fetch_prices(self._session)
         except (LifeInfoError, TimeoutError, OSError) as err:
             LOGGER.debug("xxapi 全国价格失败，转 ApiZero 逐省回补: %s", err)
+            result = {}
 
-        result: dict[str, dict[str, Any]] = {}
         for account in self.accounts:
             slug = self.account_key(account)
+            # 主源已给出该省有效价格才跳过；缺失或全空槽都要回补.
+            if _has_prices(result.get(slug) or {}):
+                continue
             try:
                 result[slug] = await async_fetch_prices_apizero(
                     self._session, slug, self._api_key
@@ -96,17 +100,14 @@ class OilPriceCoordinator(LifeInfoCoordinator):
                 continue
             except (LifeInfoError, TimeoutError, OSError) as err:
                 LOGGER.debug("ApiZero 价格失败 %s，转网页: %s", slug, err)
-            try:
-                web = await self._async_web(slug)
-                if _has_prices(web):
-                    result[slug] = {
-                        "region_name": PROVINCES.get(slug, slug),
-                        "date": web.get("date"),
-                        "prices": web["prices"],
-                        "changes": {},
-                    }
-            except (LifeInfoError, TimeoutError, OSError):
-                pass
+            web = web_by_slug.get(slug) or {}
+            if _has_prices(web):
+                result[slug] = {
+                    "region_name": PROVINCES.get(slug, slug),
+                    "date": web.get("date"),
+                    "prices": web["prices"],
+                    "changes": {},
+                }
         return result
 
     async def _async_adjust(self) -> dict[str, Any]:
