@@ -1,0 +1,149 @@
+{
+  "title": "生活信息",
+  "config": {
+    "step": {
+      "user": {
+        "title": "选择服务",
+        "description": "选择要添加的生活信息服务",
+        "data": {
+          "service": "服务"
+        }
+      },
+      "kunlun_gas": {
+        "title": "昆仑燃气",
+        "description": "填写接入信息",
+        "data": {
+          "name": "接入名称",
+          "user_code": "户号",
+          "region": "所在地区"
+        }
+      },
+      "oil_price": {
+        "title": "油价信息",
+        "description": "选择要查询的省份，ApiZero KEY 可不填",
+        "data": {
+          "name": "接入名称",
+          "api_key": "ApiZero KEY（选填）",
+          "region": "省份"
+        }
+      }
+    },
+    "error": {
+      "invalid_region": "请选择有效的地区",
+      "invalid_user_code": "户号不正确或接口未返回该户号",
+      "cannot_connect": "无法连接，请检查后重试"
+    },
+    "abort": {
+      "already_configured": "该服务已添加，请在条目选项中添加户号"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "选项",
+        "description": "管理地区与轮询间隔",
+        "menu_options": {
+          "add_account": "添加户号",
+          "remove_account": "移除户号",
+          "add_province": "添加省份",
+          "remove_province": "移除省份",
+          "edit_account": "编辑接入信息",
+          "api_key": "ApiZero KEY",
+          "scan_interval": "轮询间隔"
+        }
+      },
+      "add_account": {
+        "title": "添加户号",
+        "description": "填写新户号的接入信息",
+        "data": {
+          "name": "接入名称",
+          "user_code": "户号",
+          "region": "所在地区"
+        }
+      },
+      "remove_account": {
+        "title": "移除户号",
+        "description": "至少保留一个户号",
+        "data": {
+          "user_code": "选择户号"
+        }
+      },
+      "scan_interval": {
+        "title": "轮询间隔",
+        "data": {
+          "scan_interval": "轮询间隔"
+        }
+      },
+      "add_province": {
+        "title": "添加省份",
+        "description": "填写新省份的接入信息",
+        "data": {
+          "name": "接入名称",
+          "region": "省份"
+        }
+      },
+      "remove_province": {
+        "title": "移除省份",
+        "description": "至少保留一个省份",
+        "data": {
+          "region": "选择省份"
+        }
+      },
+      "edit_account": {
+        "title": "编辑接入信息",
+        "description": "选择要编辑的户号或省份",
+        "data": {
+          "user_code": "选择户号",
+          "region": "选择省份"
+        }
+      },
+      "edit_detail": {
+        "title": "编辑接入信息",
+        "description": "唯一标识不可修改，其余信息可更新",
+        "data": {
+          "name": "接入名称",
+          "region": "所在地区"
+        }
+      },
+      "api_key": {
+        "title": "ApiZero KEY",
+        "description": "留空使用匿名额度（每天 5 次），填写后每天 20 次",
+        "data": {
+          "api_key": "ApiZero KEY"
+        }
+      }
+    },
+    "error": {
+      "invalid_region": "请选择有效的地区",
+      "invalid_user_code": "户号不正确或接口未返回该户号",
+      "cannot_connect": "无法连接，请检查户号与地区码后重试",
+      "already_added": "已添加",
+      "cannot_remove_last": "至少保留一个地区",
+      "invalid_account": "所选账户不存在"
+    }
+  },
+  "selector": {
+    "service": {
+      "options": {
+        "kunlun_gas": "昆仑燃气",
+        "oil_price": "油价信息"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "kunlun_gas_remote_meter_balance": { "name": "表端余额" },
+      "kunlun_gas_owe_amount": { "name": "欠费金额" },
+      "kunlun_gas_account_balance": { "name": "账户余额" },
+      "kunlun_gas_meter_reading": { "name": "燃气表读数" },
+      "kunlun_gas_last_communication": { "name": "表具最后通信" },
+      "kunlun_gas_latest_gas_fee": { "name": "最近账单气费" },
+      "kunlun_gas_pay_permitted": { "name": "是否可缴费" },
+      "oil_price_gas92": { "name": "92号汽油" },
+      "oil_price_gas95": { "name": "95号汽油" },
+      "oil_price_gas98": { "name": "98号汽油" },
+      "oil_price_die0": { "name": "0号柴油" },
+      "oil_price_adjust": { "name": "调价信息" }
+    }
+  }
+}
