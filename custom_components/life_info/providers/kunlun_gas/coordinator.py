@@ -43,15 +43,31 @@ class KunlunGasCoordinator(LifeInfoCoordinator):
         return str(account[CONF_USER_CODE])
 
     async def _fetch(self) -> dict[str, dict[str, Any]]:
-        """并发取所有户号，按户号索引；任一失败则整次刷新失败."""
+        """并发取所有户号：单户失败仅剔除该户，不影响其余户号."""
         multi = len(self.accounts) > 1
-        pairs = await asyncio.gather(
+        results = await asyncio.gather(
             *(
                 self._fetch_one(account, index if multi else -1)
                 for index, account in enumerate(self.accounts)
-            )
+            ),
+            return_exceptions=True,
         )
-        return dict(pairs)
+        data: dict[str, dict[str, Any]] = {}
+        failures: list[str] = []
+        for result in results:
+            if isinstance(result, BaseException):
+                # 停机/取消信号必须继续上抛，不能被当成普通账户失败吞掉.
+                if isinstance(result, asyncio.CancelledError):
+                    raise result
+                failures.append(str(result))
+                LOGGER.warning("单户号取数失败，本户号将标为不可用: %s", result)
+                continue
+            code, item = result
+            data[code] = item
+        # 全部户号均失败才算整体失败，交给协调器标记并下周期重试.
+        if self.accounts and not data:
+            raise UpdateFailed("; ".join(failures) or "全部户号取数失败")
+        return data
 
     def _cache_key(self, code: str) -> str:
         """缓存键按户号隔离，避免多户号串味."""
