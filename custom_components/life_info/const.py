@@ -11,5 +11,6 @@ PLATFORMS: Final = [Platform.SENSOR]
 
 CONF_SERVICE: Final = "service"
 CONF_NAME: Final = "name"
+CONF_ACCOUNT: Final = "account"
 CONF_ACCOUNTS: Final = "accounts"
 CONF_SCAN_INTERVAL: Final = "scan_interval"

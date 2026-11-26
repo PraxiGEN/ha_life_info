@@ -29,7 +29,7 @@
       },
       "daily_content": {
         "title": "Daily Content",
-        "description": "No login required. ApiZero KEY is optional; when set, ApiZero is preferred",
+        "description": "No login required. ApiZero KEY is optional; when set, ApiZero is preferred. Today in history requires a key",
         "data": {
           "name": "Name",
           "api_key": "ApiZero KEY (optional)"
@@ -42,14 +42,14 @@
       "cannot_connect": "Failed to connect. Please check and retry."
     },
     "abort": {
-      "already_configured": "This service is already configured. Add accounts in the entry options."
+      "already_configured": "This service is already configured. Do not add it again."
     }
   },
   "options": {
     "step": {
       "init": {
         "title": "Options",
-        "description": "Manage regions and polling interval",
+        "description": "Manage entries and polling interval",
         "menu_options": {
           "add_account": "Add account",
           "remove_account": "Remove account",
@@ -99,10 +99,9 @@
       },
       "edit_account": {
         "title": "Edit entry",
-        "description": "Select the account or province to edit",
+        "description": "Select the entry to edit",
         "data": {
-          "user_code": "Select account",
-          "region": "Select province"
+          "account": "Entry"
         }
       },
       "edit_detail": {
@@ -115,7 +114,7 @@
       },
       "api_key": {
         "title": "ApiZero KEY",
-        "description": "Leave blank for anonymous quota (5/day), or enter a key for 20/day. History Today requires a key",
+        "description": "An ApiZero KEY raises the quota; leave blank to use the anonymous quota",
         "data": {
           "api_key": "ApiZero KEY"
         }
@@ -124,9 +123,9 @@
     "error": {
       "invalid_region": "Please select a valid region",
       "invalid_user_code": "Invalid account number or no matching data returned",
-      "cannot_connect": "Failed to connect. Check the account number and region code.",
+      "cannot_connect": "Failed to connect. Please check and retry.",
       "already_added": "Already added",
-      "cannot_remove_last": "At least one region must remain",
+      "cannot_remove_last": "At least one entry must remain",
       "invalid_account": "The selected entry no longer exists"
     }
   },

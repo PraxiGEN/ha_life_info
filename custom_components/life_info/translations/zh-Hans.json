@@ -29,7 +29,7 @@
       },
       "daily_content": {
         "title": "每日内容",
-        "description": "无需登录，ApiZero KEY 可不填；填写后优先 ApiZero",
+        "description": "无需登录，ApiZero KEY 可不填；填写后优先 ApiZero。历史上的今天需 KEY",
         "data": {
           "name": "接入名称",
           "api_key": "ApiZero KEY（选填）"
@@ -42,14 +42,14 @@
       "cannot_connect": "无法连接，请检查后重试"
     },
     "abort": {
-      "already_configured": "该服务已添加，请在条目选项中添加户号"
+      "already_configured": "该服务已添加，请勿重复添加"
     }
   },
   "options": {
     "step": {
       "init": {
         "title": "选项",
-        "description": "管理地区与轮询间隔",
+        "description": "管理接入项与轮询间隔",
         "menu_options": {
           "add_account": "添加户号",
           "remove_account": "移除户号",
@@ -99,10 +99,9 @@
       },
       "edit_account": {
         "title": "编辑接入信息",
-        "description": "选择要编辑的户号或省份",
+        "description": "选择要编辑的接入项",
         "data": {
-          "user_code": "选择户号",
-          "region": "选择省份"
+          "account": "接入项"
         }
       },
       "edit_detail": {
@@ -115,7 +114,7 @@
       },
       "api_key": {
         "title": "ApiZero KEY",
-        "description": "留空使用匿名额度（每天 5 次），填写后每天 20 次；历史今日需 KEY",
+        "description": "ApiZero KEY 用于提升额度，留空使用匿名额度",
         "data": {
           "api_key": "ApiZero KEY"
         }
@@ -124,9 +123,9 @@
     "error": {
       "invalid_region": "请选择有效的地区",
       "invalid_user_code": "户号不正确或接口未返回该户号",
-      "cannot_connect": "无法连接，请检查户号与地区码后重试",
+      "cannot_connect": "无法连接，请检查后重试",
       "already_added": "已添加",
-      "cannot_remove_last": "至少保留一个地区",
+      "cannot_remove_last": "至少保留一个接入项",
       "invalid_account": "所选账户不存在"
     }
   },
