@@ -5,7 +5,7 @@ from homeassistant.config_entries import OptionsFlowWithReload
 
 from ..base import LifeInfoSensorEntityDescription
 from ..coordinator import LifeInfoCoordinator
-from . import kunlun_gas, oil_price
+from . import daily_content, kunlun_gas, oil_price
 from .spec import ProviderSpec
 
 # 新增服务：写私有包 + 在此追加一条 SPEC，其余索引自动派生.
@@ -27,6 +27,15 @@ SPECS: tuple[ProviderSpec, ...] = (
         flow_entry_step=oil_price.FLOW_ENTRY_STEP,
         flow_mixin=oil_price.OilPriceFlowMixin,
         options_flow=oil_price.OilPriceOptionsFlow,
+    ),
+    ProviderSpec(
+        service_id=daily_content.SERVICE_ID,
+        name=daily_content.SERVICE_NAME,
+        coordinator=daily_content.DailyContentCoordinator,
+        sensor_descriptions=daily_content.SENSOR_DESCRIPTIONS,
+        flow_entry_step=daily_content.FLOW_ENTRY_STEP,
+        flow_mixin=daily_content.DailyContentFlowMixin,
+        options_flow=daily_content.DailyContentOptionsFlow,
     ),
 )
 
