@@ -26,6 +26,14 @@
           "api_key": "ApiZero KEY（选填）",
           "region": "省份"
         }
+      },
+      "daily_content": {
+        "title": "每日内容",
+        "description": "无需登录，ApiZero KEY 可不填；填写后优先 ApiZero",
+        "data": {
+          "name": "接入名称",
+          "api_key": "ApiZero KEY（选填）"
+        }
       }
     },
     "error": {
@@ -107,7 +115,7 @@
       },
       "api_key": {
         "title": "ApiZero KEY",
-        "description": "留空使用匿名额度（每天 5 次），填写后每天 20 次",
+        "description": "留空使用匿名额度（每天 5 次），填写后每天 20 次；历史今日需 KEY",
         "data": {
           "api_key": "ApiZero KEY"
         }
@@ -126,7 +134,8 @@
     "service": {
       "options": {
         "kunlun_gas": "昆仑燃气",
-        "oil_price": "油价信息"
+        "oil_price": "油价信息",
+        "daily_content": "每日内容"
       }
     }
   },
@@ -143,7 +152,11 @@
       "oil_price_gas95": { "name": "95号汽油" },
       "oil_price_gas98": { "name": "98号汽油" },
       "oil_price_die0": { "name": "0号柴油" },
-      "oil_price_adjust": { "name": "调价信息" }
+      "oil_price_adjust": { "name": "调价信息" },
+      "daily_content_hitokoto": { "name": "每日一言" },
+      "daily_content_poetry": { "name": "每日诗词" },
+      "daily_content_soul_soup": { "name": "毒鸡汤" },
+      "daily_content_history": { "name": "历史上的今天" }
     }
   }
 }
