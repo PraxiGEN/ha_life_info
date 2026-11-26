@@ -12,7 +12,7 @@ from homeassistant.helpers.selector import (
     SelectSelectorMode,
 )
 
-from .const import CONF_ACCOUNTS, CONF_NAME, CONF_SCAN_INTERVAL
+from .const import CONF_ACCOUNT, CONF_ACCOUNTS, CONF_NAME, CONF_SCAN_INTERVAL
 
 class LifeInfoOptionsFlow(OptionsFlowWithReload):
     """基类：账户增删/编辑/间隔骨架，子类声明唯一键、菜单与校验."""
@@ -111,7 +111,7 @@ class LifeInfoOptionsFlow(OptionsFlowWithReload):
         if self._edit_key is None:
             errors: dict[str, str] = {}
             if user_input is not None:
-                key = str(user_input.get(self.ACCOUNT_KEY) or "")
+                key = str(user_input.get(CONF_ACCOUNT) or "")
                 if self._find_account(key) is None:
                     errors["base"] = "invalid_account"
                 else:
@@ -121,7 +121,7 @@ class LifeInfoOptionsFlow(OptionsFlowWithReload):
             return self.async_show_form(
                 step_id="edit_account",
                 data_schema=vol.Schema({
-                    vol.Required(self.ACCOUNT_KEY): SelectSelector(
+                    vol.Required(CONF_ACCOUNT): SelectSelector(
                         SelectSelectorConfig(
                             options=self._account_options(),
                             mode=SelectSelectorMode.DROPDOWN,
