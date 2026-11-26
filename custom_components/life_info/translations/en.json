@@ -26,6 +26,14 @@
           "api_key": "ApiZero KEY (optional)",
           "region": "Province"
         }
+      },
+      "daily_content": {
+        "title": "Daily Content",
+        "description": "No login required. ApiZero KEY is optional; when set, ApiZero is preferred",
+        "data": {
+          "name": "Name",
+          "api_key": "ApiZero KEY (optional)"
+        }
       }
     },
     "error": {
@@ -107,7 +115,7 @@
       },
       "api_key": {
         "title": "ApiZero KEY",
-        "description": "Leave blank for anonymous quota (5/day), or enter a key for 20/day",
+        "description": "Leave blank for anonymous quota (5/day), or enter a key for 20/day. History Today requires a key",
         "data": {
           "api_key": "ApiZero KEY"
         }
@@ -126,7 +134,8 @@
     "service": {
       "options": {
         "kunlun_gas": "Kunlun Gas",
-        "oil_price": "Fuel Price"
+        "oil_price": "Fuel Price",
+        "daily_content": "Daily Content"
       }
     }
   },
@@ -143,7 +152,11 @@
       "oil_price_gas95": { "name": "Gasoline 95#" },
       "oil_price_gas98": { "name": "Gasoline 98#" },
       "oil_price_die0": { "name": "Diesel 0#" },
-      "oil_price_adjust": { "name": "Price adjustment" }
+      "oil_price_adjust": { "name": "Price adjustment" },
+      "daily_content_hitokoto": { "name": "Daily quote" },
+      "daily_content_poetry": { "name": "Daily poetry" },
+      "daily_content_soul_soup": { "name": "Soul soup" },
+      "daily_content_history": { "name": "Today in history" }
     }
   }
 }
