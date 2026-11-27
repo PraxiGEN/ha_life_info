@@ -37,9 +37,13 @@ from .const import (
     CONF_NAME,
     CONF_SCAN_INTERVAL,
     DEFAULT_SCAN_INTERVAL,
+    MIN_SCAN_INTERVAL,
     QUIET_END_HOUR,
     QUIET_START_HOUR,
     SERVICE_NAME,
+    TTL_HITOKOTO,
+    TTL_POETRY,
+    TTL_SOUL_SOUP,
 )
 
 _ENTITY_ORDER = ("hitokoto", "poetry", "soul_soup", "history")
@@ -135,9 +139,10 @@ class DailyContentCoordinator(LifeInfoCoordinator):
 
     def __init__(self, hass: HomeAssistant, entry) -> None:
         interval = max(
-            int(entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)), 1
+            int(entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)),
+            MIN_SCAN_INTERVAL,
         )
-        super().__init__(hass, entry, update_interval=timedelta(hours=interval))
+        super().__init__(hass, entry, update_interval=timedelta(minutes=interval))
         self._session = async_get_clientsession(hass)
         self._api_key = str(entry.options.get(CONF_API_KEY) or "").strip()
 
@@ -166,6 +171,12 @@ class DailyContentCoordinator(LifeInfoCoordinator):
 
     def _in_quiet_hours(self) -> bool:
         return QUIET_START_HOUR <= dt_util.now().hour < QUIET_END_HOUR
+
+    async def _fresh_or_none(self, key: str, ttl: int) -> dict[str, Any] | None:
+        if not self._api_key:
+            return None
+        cached = await storage.async_load(self.hass, self._cache_key(key))
+        return cached["data"] if storage.is_fresh(cached, ttl) else None
 
     @property
     def accounts(self) -> list[dict[str, Any]]:
@@ -198,6 +209,8 @@ class DailyContentCoordinator(LifeInfoCoordinator):
         return {ACCOUNT_KEY: values}
 
     async def _async_hitokoto(self) -> dict[str, Any] | None:
+        if (v := await self._fresh_or_none("hitokoto", TTL_HITOKOTO)) is not None:
+            return v
         s, k = self._session, self._api_key
         if k:
             async def _c1(): return parse_hitokoto(await async_fetch_apizero_hitokoto(s, k), "apizero")
@@ -212,6 +225,8 @@ class DailyContentCoordinator(LifeInfoCoordinator):
         return await self._async_first("hitokoto", "一言", calls)
 
     async def _async_poetry(self) -> dict[str, Any] | None:
+        if (v := await self._fresh_or_none("poetry", TTL_POETRY)) is not None:
+            return v
         s, k = self._session, self._api_key
         if k:
             async def _c1(): return parse_poetry(await async_fetch_apizero_poetry(s, k), "apizero")
@@ -224,6 +239,8 @@ class DailyContentCoordinator(LifeInfoCoordinator):
         return await self._async_first("poetry", "诗词", calls)
 
     async def _async_soul_soup(self) -> dict[str, Any] | None:
+        if (v := await self._fresh_or_none("soul_soup", TTL_SOUL_SOUP)) is not None:
+            return v
         s, k = self._session, self._api_key
         if k:
             async def _c1(): return parse_soul_soup(await async_fetch_apizero_soul_soup(s, k), "apizero")
