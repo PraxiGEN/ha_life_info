@@ -32,6 +32,7 @@ class OilPriceOptionsFlow(LifeInfoOptionsFlow):
     MENU_OPTIONS = ("add_province", "remove_province", "api_key")
     INTERVAL_OPTIONS = SCAN_INTERVAL_OPTIONS
     DEFAULT_INTERVAL = DEFAULT_SCAN_INTERVAL
+    SCAN_INTERVAL_LABEL = "小时"
     ACCOUNT_KEY = CONF_REGION
 
     async def async_step_api_key(

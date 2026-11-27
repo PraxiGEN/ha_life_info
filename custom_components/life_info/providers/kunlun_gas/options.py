@@ -32,6 +32,7 @@ class KunlunGasOptionsFlow(LifeInfoOptionsFlow):
     MENU_OPTIONS = ("add_account", "remove_account")
     INTERVAL_OPTIONS = SCAN_INTERVAL_OPTIONS
     DEFAULT_INTERVAL = DEFAULT_SCAN_INTERVAL
+    SCAN_INTERVAL_LABEL = "小时"
     ACCOUNT_KEY = CONF_USER_CODE
 
     async def async_step_add_account(
