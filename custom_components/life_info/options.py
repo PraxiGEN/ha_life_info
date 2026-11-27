@@ -20,7 +20,6 @@ class LifeInfoOptionsFlow(OptionsFlowWithReload):
     MENU_OPTIONS: tuple[str, ...] = ()
     INTERVAL_OPTIONS: tuple[int, ...] = ()
     DEFAULT_INTERVAL: int = 1
-    SCAN_INTERVAL_LABEL: str = "小时"
     ACCOUNT_KEY: str = ""
 
     def __init__(self) -> None:
