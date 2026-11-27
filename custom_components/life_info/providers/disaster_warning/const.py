@@ -73,48 +73,22 @@ SCOPE_TO_CATEGORY: dict[str, str] = {
     for scope in scopes
 }
 
-SCOPE_LABELS: dict[str, str] = {
-    "cea": "中国地震预警网",
-    "cea_pr": "省级地震预警",
-    "cwa_eew": "台湾强震即时警报",
-    "kma_eew": "韩国地震预警",
-    "jma_eew": "日本紧急地震速报",
-    "agg_early_est": "全球预警汇总",
-    "agg_usgs_shakealert": "USGS ShakeAlert",
-    "sasmex_warning": "墨西哥 SASMEX 预警",
-    "sasmex_city": "墨西哥城市预警",
-    "cenc": "中国地震台网",
-    "jma_report": "日本震源·震度情报",
-    "cwa_report": "台湾地震报告",
-    "usgs": "USGS",
-    "emsc": "EMSC",
-    "gfz": "GFZ",
-    "sasmex_report": "墨西哥地震报告",
-    "bmkg": "印尼 BMKG",
-    "bmkg/intensity": "印尼 BMKG 烈度",
-    "geonet": "新西兰 GeoNet",
-    "geonet/dyfi": "GeoNet 震感报告",
-    "geonet/intensity": "GeoNet 烈度",
-    "usp": "南太平洋大学",
-    "funvisis": "委内瑞拉 FUNVISIS",
-    "tmd": "泰国气象厅",
-    "phivolcs": "菲律宾火山地震研究所",
-    "palert_eq": "P-Alert 地震",
-    "jma_tsunami": "日本海啸预警",
-    "nmefc_tsunami": "国家海洋预报台",
-    "noaa_tsunami": "NOAA 海啸预警",
-    "gdacs_tsunami": "GDACS 海啸",
-    "gdacs_tsunami_obs": "GDACS 海啸观测",
+SCOPE_ALIASES: dict[str, str] = {
+    "bmkg_intensity": "bmkg/intensity",
+    "geonet_dyfi": "geonet/dyfi",
+    "geonet_intensity": "geonet/intensity",
 }
+_SCOPE_TO_ALIAS = {scope: alias for alias, scope in SCOPE_ALIASES.items()}
 
-SCOPE_SELECTOR_OPTIONS: list[dict[str, str]] = [
-    {
-        "value": scope,
-        "label": f"{category}｜{SCOPE_LABELS.get(scope, scope)}",
-    }
-    for category, scopes in SCOPE_GROUPS.items()
-    for scope in scopes
-]
+def scope_alias(scope: str) -> str:
+    """斜杠 scope 转合法 slug，作选择器 value 与翻译键."""
+    return _SCOPE_TO_ALIAS.get(scope, scope)
+
+def scope_from_alias(alias: str) -> str:
+    """选择器提交值还原为真实 scope."""
+    return SCOPE_ALIASES.get(alias, alias)
+
+SCOPE_SELECTOR_OPTIONS: tuple[str, ...] = tuple(scope_alias(s) for s in SCOPES)
 
 CONF_REGION = "region"
 REGION_ALL = "all"
