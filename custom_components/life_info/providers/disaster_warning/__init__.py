@@ -20,6 +20,8 @@ from .const import (
     SERVICE_ID,
     SERVICE_NAME,
     resolve_scopes,
+    scope_alias,
+    scope_from_alias,
 )
 from .coordinator import DisasterWarningCoordinator
 from .flow import FLOW_ENTRY_STEP, DisasterWarningFlowMixin
@@ -45,6 +47,8 @@ __all__ = [
     "SCOPES",
     "SCOPE_GROUPS",
     "SCOPE_SELECTOR_OPTIONS",
+    "scope_alias",
+    "scope_from_alias",
     "DisasterWarningCoordinator",
     "SENSOR_DESCRIPTIONS",
     "DisasterWarningFlowMixin",

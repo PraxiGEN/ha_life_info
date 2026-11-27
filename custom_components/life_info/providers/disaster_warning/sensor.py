@@ -4,10 +4,38 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from ...base import LifeInfoSensorEntityDescription
-from .api import record_attributes
 from .const import CATEGORY_REPORT, CATEGORY_TSUNAMI, CATEGORY_WARNING
 
 _MAX_STATE = 255
+
+_EARTHQUAKE_ATTRS: tuple[str, ...] = (
+    "event_id",
+    "location",
+    "magnitude",
+    "intensity",
+    "time",
+    "depth",
+    "serial",
+    "is_cancel",
+    "recv_time",
+    "scope",
+)
+_TSUNAMI_ATTRS: tuple[str, ...] = (
+    "event_id",
+    "location",
+    "level",
+    "time",
+    "recv_time",
+    "scope",
+)
+
+def record_attributes(
+    record: dict[str, Any], fields: tuple[str, ...]
+) -> dict[str, Any]:
+    """只取固定字段表中的非空项；原始 payload 不进属性."""
+    return {
+        name: record[name] for name in fields if record.get(name) is not None
+    }
 
 def _quake_text(record: dict[str, Any]) -> str | None:
     magnitude = record.get("magnitude")
@@ -34,10 +62,10 @@ def _value(category: str, formatter: Callable[[dict[str, Any]], str | None]):
 
     return build
 
-def _attributes(category: str):
+def _attributes(category: str, fields: tuple[str, ...]):
     def build(data: dict[str, Any]) -> dict[str, Any]:
         record = data.get(category)
-        return record_attributes(record) if isinstance(record, dict) else {}
+        return record_attributes(record, fields) if isinstance(record, dict) else {}
 
     return build
 
@@ -47,20 +75,20 @@ SENSOR_DESCRIPTIONS: tuple[LifeInfoSensorEntityDescription, ...] = (
         translation_key="quake_warning",
         icon="mdi:alert",
         value_fn=_value(CATEGORY_WARNING, _quake_text),
-        attr_fn=_attributes(CATEGORY_WARNING),
+        attr_fn=_attributes(CATEGORY_WARNING, _EARTHQUAKE_ATTRS),
     ),
     LifeInfoSensorEntityDescription(
         key="earthquake_report",
         translation_key="quake_report",
         icon="mdi:information-outline",
         value_fn=_value(CATEGORY_REPORT, _quake_text),
-        attr_fn=_attributes(CATEGORY_REPORT),
+        attr_fn=_attributes(CATEGORY_REPORT, _EARTHQUAKE_ATTRS),
     ),
     LifeInfoSensorEntityDescription(
         key="tsunami_warning",
         translation_key="tsunami_warning",
         icon="mdi:waves",
         value_fn=_value(CATEGORY_TSUNAMI, _tsunami_text),
-        attr_fn=_attributes(CATEGORY_TSUNAMI),
+        attr_fn=_attributes(CATEGORY_TSUNAMI, _TSUNAMI_ATTRS),
     ),
 )

@@ -176,6 +176,41 @@
         "daily_content": "每日内容",
         "disaster_warning": "灾害预警"
       }
+    },
+    "scope": {
+      "options": {
+        "cea": "地震预警｜中国地震预警网",
+        "cea_pr": "地震预警｜省级地震预警",
+        "cwa_eew": "地震预警｜台湾强震即时警报",
+        "kma_eew": "地震预警｜韩国地震预警",
+        "jma_eew": "地震预警｜日本紧急地震速报",
+        "agg_early_est": "地震预警｜全球预警汇总",
+        "agg_usgs_shakealert": "地震预警｜USGS ShakeAlert",
+        "sasmex_warning": "地震预警｜墨西哥 SASMEX 预警",
+        "sasmex_city": "地震预警｜墨西哥城市预警",
+        "cenc": "地震情报｜中国地震台网",
+        "jma_report": "地震情报｜日本震源·震度情报",
+        "cwa_report": "地震情报｜台湾地震报告",
+        "usgs": "地震情报｜USGS",
+        "emsc": "地震情报｜EMSC",
+        "gfz": "地震情报｜GFZ",
+        "sasmex_report": "地震情报｜墨西哥地震报告",
+        "bmkg": "地震情报｜印尼 BMKG",
+        "bmkg_intensity": "地震情报｜印尼 BMKG 烈度",
+        "geonet": "地震情报｜新西兰 GeoNet",
+        "geonet_dyfi": "地震情报｜GeoNet 震感报告",
+        "geonet_intensity": "地震情报｜GeoNet 烈度",
+        "usp": "地震情报｜南太平洋大学",
+        "funvisis": "地震情报｜委内瑞拉 FUNVISIS",
+        "tmd": "地震情报｜泰国气象厅",
+        "phivolcs": "地震情报｜菲律宾火山地震研究所",
+        "palert_eq": "地震情报｜P-Alert 地震",
+        "jma_tsunami": "海啸预警｜日本海啸预警",
+        "nmefc_tsunami": "海啸预警｜国家海洋预报台",
+        "noaa_tsunami": "海啸预警｜NOAA 海啸预警",
+        "gdacs_tsunami": "海啸预警｜GDACS 海啸",
+        "gdacs_tsunami_obs": "海啸预警｜GDACS 海啸观测"
+      }
     }
   },
   "entity": {
@@ -231,133 +266,33 @@
       "quake_warning": {
         "name": "地震预警",
         "state_attributes": {
-          "title": {
-            "name": "标题"
-          },
-          "status": {
-            "name": "状态",
-            "state": {}
-          },
-          "announcedtime": {
-            "name": "发布时间"
-          },
-          "eventid": {
+          "event_id": {
             "name": "事件ID"
-          },
-          "identifier": {
-            "name": "标识"
-          },
-          "infotype": {
-            "name": "信息类型",
-            "state": {}
-          },
-          "serial": {
-            "name": "报次"
-          },
-          "origintime": {
-            "name": "发震时间"
-          },
-          "origin_time": {
-            "name": "发震时间"
-          },
-          "hypocenter": {
-            "name": "震中"
-          },
-          "epicenter_name": {
-            "name": "震中"
           },
           "location": {
             "name": "位置"
           },
-          "latitude": {
-            "name": "纬度"
+          "magnitude": {
+            "name": "震级"
           },
-          "longitude": {
-            "name": "经度"
+          "intensity": {
+            "name": "烈度"
+          },
+          "time": {
+            "name": "时间"
           },
           "depth": {
             "name": "深度"
           },
-          "magunitude": {
-            "name": "震级"
+          "serial": {
+            "name": "报次"
           },
-          "magnitude": {
-            "name": "震级"
-          },
-          "maxintensity": {
-            "name": "最大烈度"
-          },
-          "max_intensity": {
-            "name": "最大烈度"
-          },
-          "maxlgint": {
-            "name": "最大长周期地震动"
-          },
-          "accuracy": {
-            "name": "精度"
-          },
-          "warnarea": {
-            "name": "预警区域"
-          },
-          "issea": {
-            "name": "海域地震",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "isassumption": {
-            "name": "假定震源",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "iswarn": {
-            "name": "预警",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "isfinal": {
-            "name": "终报",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "istraining": {
-            "name": "训练",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "iscancel": {
+          "is_cancel": {
             "name": "已取消",
             "state": {
               "true": "是",
               "false": "否"
             }
-          },
-          "event_id": {
-            "name": "事件ID"
-          },
-          "province": {
-            "name": "省份"
-          },
-          "sub_source": {
-            "name": "子来源"
-          },
-          "provinces": {
-            "name": "涉及省份"
-          },
-          "province_count": {
-            "name": "省份数量"
-          },
-          "created_at": {
-            "name": "创建时间"
           },
           "recv_time": {
             "name": "接收时间"
@@ -394,190 +329,32 @@
               "gdacs_tsunami": "GDACS 海啸",
               "gdacs_tsunami_obs": "GDACS 海啸观测"
             }
-          },
-          "cache_at": {
-            "name": "缓存时间"
-          },
-          "raw_is_cancel": {
-            "name": "原始已取消",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "is_cancel": {
-            "name": "已取消",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "schema": {
-            "name": "数据结构"
-          },
-          "category": {
-            "name": "类别"
-          },
-          "source": {
-            "name": "来源"
-          },
-          "time": {
-            "name": "时间"
-          },
-          "raw": {
-            "name": "原始报文"
-          },
-          "raw_schema": {
-            "name": "原始数据结构"
-          },
-          "raw_category": {
-            "name": "原始类别"
-          },
-          "raw_event_id": {
-            "name": "原始事件ID"
-          },
-          "raw_location": {
-            "name": "原始位置"
-          },
-          "raw_magnitude": {
-            "name": "原始震级"
-          },
-          "raw_intensity": {
-            "name": "原始烈度"
-          },
-          "raw_time": {
-            "name": "原始时间"
-          },
-          "raw_depth": {
-            "name": "原始深度"
-          },
-          "raw_serial": {
-            "name": "原始报次"
-          },
-          "raw_level": {
-            "name": "原始等级"
-          },
-          "raw_recv_time": {
-            "name": "原始接收时间"
-          },
-          "raw_source": {
-            "name": "原始来源"
-          },
-          "intensity": {
-            "name": "烈度"
-          },
-          "level": {
-            "name": "等级"
           }
         }
       },
       "quake_report": {
         "name": "地震情报",
         "state_attributes": {
-          "id": {
-            "name": "事件ID"
-          },
-          "eventid": {
-            "name": "事件ID"
-          },
           "event_id": {
             "name": "事件ID"
-          },
-          "md5": {
-            "name": "校验值"
-          },
-          "type": {
-            "name": "报文类型"
-          },
-          "origintime": {
-            "name": "发震时间"
-          },
-          "time": {
-            "name": "发震时间"
-          },
-          "announcedtime": {
-            "name": "发布时间"
-          },
-          "reporttime": {
-            "name": "发布时间"
-          },
-          "recvtime": {
-            "name": "接收时间"
-          },
-          "recv_time": {
-            "name": "接收时间"
-          },
-          "latitude": {
-            "name": "纬度"
-          },
-          "longitude": {
-            "name": "经度"
-          },
-          "depth": {
-            "name": "深度"
-          },
-          "magnitude": {
-            "name": "震级"
-          },
-          "magunitude": {
-            "name": "震级"
-          },
-          "placename": {
-            "name": "位置"
           },
           "location": {
             "name": "位置"
           },
-          "epicenterplace": {
-            "name": "震中"
-          },
-          "epicenterlat": {
-            "name": "震中纬度"
-          },
-          "epicenterlon": {
-            "name": "震中经度"
-          },
-          "epicenter_name": {
-            "name": "震中"
-          },
-          "max_intensity": {
-            "name": "最大烈度"
-          },
-          "maxintensity": {
-            "name": "最大烈度"
+          "magnitude": {
+            "name": "震级"
           },
           "intensity": {
             "name": "烈度"
           },
+          "time": {
+            "name": "发震时间"
+          },
+          "depth": {
+            "name": "深度"
+          },
           "serial": {
             "name": "报次"
-          },
-          "number": {
-            "name": "编号"
-          },
-          "description": {
-            "name": "说明"
-          },
-          "infotypename": {
-            "name": "信息类型",
-            "state": {}
-          },
-          "info_type": {
-            "name": "信息类型",
-            "state": {}
-          },
-          "hypocenter": {
-            "name": "震源"
-          },
-          "title": {
-            "name": "标题"
-          },
-          "cancelled": {
-            "name": "已取消",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
           },
           "is_cancel": {
             "name": "已取消",
@@ -586,17 +363,8 @@
               "false": "否"
             }
           },
-          "areas": {
-            "name": "影响区域"
-          },
-          "province": {
-            "name": "省份"
-          },
-          "sub_source": {
-            "name": "子来源"
-          },
-          "created_at": {
-            "name": "创建时间"
+          "recv_time": {
+            "name": "接收时间"
           },
           "scope": {
             "name": "数据源",
@@ -630,112 +398,26 @@
               "gdacs_tsunami": "GDACS 海啸",
               "gdacs_tsunami_obs": "GDACS 海啸观测"
             }
-          },
-          "cache_at": {
-            "name": "缓存时间"
-          },
-          "raw_is_cancel": {
-            "name": "原始已取消",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "schema": {
-            "name": "数据结构"
-          },
-          "category": {
-            "name": "类别"
-          },
-          "source": {
-            "name": "来源"
-          },
-          "raw": {
-            "name": "原始报文"
-          },
-          "raw_schema": {
-            "name": "原始数据结构"
-          },
-          "raw_category": {
-            "name": "原始类别"
-          },
-          "raw_event_id": {
-            "name": "原始事件ID"
-          },
-          "raw_location": {
-            "name": "原始位置"
-          },
-          "raw_magnitude": {
-            "name": "原始震级"
-          },
-          "raw_intensity": {
-            "name": "原始烈度"
-          },
-          "raw_time": {
-            "name": "原始时间"
-          },
-          "raw_depth": {
-            "name": "原始深度"
-          },
-          "raw_serial": {
-            "name": "原始报次"
-          },
-          "raw_level": {
-            "name": "原始等级"
-          },
-          "raw_recv_time": {
-            "name": "原始接收时间"
-          },
-          "raw_source": {
-            "name": "原始来源"
-          },
-          "level": {
-            "name": "等级"
           }
         }
       },
       "tsunami_warning": {
         "name": "海啸预警",
         "state_attributes": {
-          "id": {
-            "name": "报文ID"
-          },
           "event_id": {
             "name": "地震ID"
           },
-          "source": {
-            "name": "来源"
+          "location": {
+            "name": "位置"
           },
-          "kind": {
-            "name": "类型"
-          },
-          "title": {
-            "name": "标题"
-          },
-          "region": {
-            "name": "区域"
+          "level": {
+            "name": "等级"
           },
           "time": {
             "name": "发布时间"
           },
           "recv_time": {
             "name": "接收时间"
-          },
-          "cancelled": {
-            "name": "已取消",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "level": {
-            "name": "等级"
-          },
-          "level_name": {
-            "name": "等级名称"
-          },
-          "areas": {
-            "name": "影响区域"
           },
           "scope": {
             "name": "数据源",
@@ -769,134 +451,6 @@
               "gdacs_tsunami": "GDACS 海啸",
               "gdacs_tsunami_obs": "GDACS 海啸观测"
             }
-          },
-          "cache_at": {
-            "name": "缓存时间"
-          },
-          "code": {
-            "name": "报文编号"
-          },
-          "batch": {
-            "name": "批次"
-          },
-          "level_text": {
-            "name": "等级"
-          },
-          "color": {
-            "name": "颜色"
-          },
-          "area": {
-            "name": "区域"
-          },
-          "org": {
-            "name": "发布机构"
-          },
-          "update_time": {
-            "name": "更新时间"
-          },
-          "alarm_time": {
-            "name": "发布时间"
-          },
-          "html_url": {
-            "name": "详情链接"
-          },
-          "icon": {
-            "name": "预警图标"
-          },
-          "register": {
-            "name": "登记时间"
-          },
-          "expires_at": {
-            "name": "失效时间"
-          },
-          "is_training": {
-            "name": "训练"
-          },
-          "training": {
-            "name": "训练"
-          },
-          "update_ts": {
-            "name": "更新时间"
-          },
-          "alarm_ts": {
-            "name": "发布时间"
-          },
-          "time_ts": {
-            "name": "时间"
-          },
-          "raw_is_cancel": {
-            "name": "原始已取消",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "is_cancel": {
-            "name": "已取消",
-            "state": {
-              "true": "是",
-              "false": "否"
-            }
-          },
-          "schema": {
-            "name": "数据结构"
-          },
-          "category": {
-            "name": "类别"
-          },
-          "raw": {
-            "name": "原始报文"
-          },
-          "raw_schema": {
-            "name": "原始数据结构"
-          },
-          "raw_category": {
-            "name": "原始类别"
-          },
-          "raw_event_id": {
-            "name": "原始事件ID"
-          },
-          "raw_location": {
-            "name": "原始位置"
-          },
-          "raw_magnitude": {
-            "name": "原始震级"
-          },
-          "raw_intensity": {
-            "name": "原始烈度"
-          },
-          "raw_time": {
-            "name": "原始时间"
-          },
-          "raw_depth": {
-            "name": "原始深度"
-          },
-          "raw_serial": {
-            "name": "原始报次"
-          },
-          "raw_level": {
-            "name": "原始等级"
-          },
-          "raw_recv_time": {
-            "name": "原始接收时间"
-          },
-          "raw_source": {
-            "name": "原始来源"
-          },
-          "location": {
-            "name": "位置"
-          },
-          "magnitude": {
-            "name": "震级"
-          },
-          "intensity": {
-            "name": "烈度"
-          },
-          "depth": {
-            "name": "深度"
-          },
-          "serial": {
-            "name": "报次"
           }
         }
       }
