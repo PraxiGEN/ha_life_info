@@ -23,6 +23,7 @@ class DailyContentOptionsFlow(LifeInfoOptionsFlow):
     MENU_OPTIONS = ("api_key",)
     INTERVAL_OPTIONS = SCAN_INTERVAL_OPTIONS
     DEFAULT_INTERVAL = DEFAULT_SCAN_INTERVAL
+    SCAN_INTERVAL_LABEL = "分钟"
     ACCOUNT_KEY = CONF_ACCOUNT_KEY
 
     async def async_step_api_key(
