@@ -31,6 +31,8 @@ from .const import (
     SCOPE_TO_CATEGORY,
     SERVICE_ID,
     SERVICE_NAME,
+    scope_alias,
+    scope_from_alias,
 )
 
 FLOW_ENTRY_STEP = "disaster_warning"
@@ -49,15 +51,13 @@ def _region_selector() -> SelectSelector:
     )
 
 def _scope_selector() -> SelectSelector:
-    """二级：数据源细选，默认勾选区域展开的源."""
+    """二级：数据源细选，标签走 selector.scope 翻译."""
     return SelectSelector(
         SelectSelectorConfig(
-            options=[
-                SelectOptionDict(value=option["value"], label=option["label"])
-                for option in SCOPE_SELECTOR_OPTIONS
-            ],
+            options=list(SCOPE_SELECTOR_OPTIONS),
             mode=SelectSelectorMode.DROPDOWN,
             multiple=True,
+            translation_key="scope",
         )
     )
 
@@ -109,9 +109,9 @@ class DisasterWarningFlowMixin:
         region = getattr(self, "_disaster_region", REGION_ALL)
         if user_input is not None:
             scopes = [
-                str(scope)
+                scope_from_alias(str(scope))
                 for scope in user_input.get(CONF_SCOPE) or []
-                if scope in SCOPE_TO_CATEGORY
+                if scope_from_alias(str(scope)) in SCOPE_TO_CATEGORY
             ]
             if not scopes:
                 errors["base"] = "scope_required"
@@ -136,7 +136,7 @@ class DisasterWarningFlowMixin:
 
         defaults = user_input or {}
         current = [
-            str(scope)
+            scope_alias(str(scope))
             for scope in defaults.get(CONF_SCOPE) or REGION_GROUPS.get(region, ())
             if scope in SCOPE_TO_CATEGORY
         ]
