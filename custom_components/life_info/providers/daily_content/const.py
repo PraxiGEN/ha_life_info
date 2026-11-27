@@ -12,8 +12,14 @@ CONF_API_KEY = "api_key"
 CONF_ACCOUNT_KEY = "key"
 ACCOUNT_KEY = "daily"
 
-DEFAULT_SCAN_INTERVAL = 1
-SCAN_INTERVAL_OPTIONS: tuple[int, ...] = (1, 3, 6, 12, 24)
+DEFAULT_SCAN_INTERVAL = 10
+MIN_SCAN_INTERVAL = 10
+SCAN_INTERVAL_OPTIONS: tuple[int, ...] = (10, 20, 30, 60, 120, 240)
+
+# 有 KEY 时按 ApiZero 日额度限频；诗词/毒鸡汤额度 20 次/日
+TTL_HITOKOTO: Final = 600
+TTL_POETRY: Final = 3600
+TTL_SOUL_SOUP: Final = 3600
 
 QUIET_START_HOUR: Final = 0
 QUIET_END_HOUR: Final = 5
