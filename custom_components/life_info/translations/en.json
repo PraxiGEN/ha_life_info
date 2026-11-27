@@ -34,12 +34,28 @@
           "name": "Name",
           "api_key": "ApiZero KEY (optional)"
         }
+      },
+      "disaster_warning": {
+        "title": "Disaster warning",
+        "description": "Pick a region first; fine-tune the sources in the next step.",
+        "data": {
+          "name": "Name",
+          "region": "Region"
+        }
+      },
+      "disaster_warning_scope": {
+        "title": "Scopes",
+        "description": "Pre-selected from the region. Adjust as needed; only checked sources are used.",
+        "data": {
+          "scope": "Sources"
+        }
       }
     },
     "error": {
       "invalid_region": "Please select a valid region",
       "invalid_user_code": "Invalid account number or no matching data returned",
-      "cannot_connect": "Failed to connect. Please check and retry."
+      "cannot_connect": "Failed to connect. Please check and retry.",
+      "scope_required": "Select at least one region or source"
     },
     "abort": {
       "already_configured": "This service is already configured. Do not add it again."
@@ -57,6 +73,7 @@
           "remove_province": "Remove province",
           "edit_account": "Edit entry",
           "api_key": "ApiZero KEY",
+          "scope": "Scopes",
           "scan_interval": "Polling interval"
         }
       },
@@ -118,6 +135,27 @@
         "data": {
           "api_key": "ApiZero KEY"
         }
+      },
+      "scope": {
+        "title": "Scopes · Region",
+        "description": "Pick a broad region; sources are selected in the next step.",
+        "data": {
+          "region": "Region"
+        }
+      },
+      "region": {
+        "title": "Region presets",
+        "description": "Pick broad regions; combined with the detailed scopes",
+        "data": {
+          "region": "Region presets"
+        }
+      },
+      "scope_detail": {
+        "title": "Scopes · Sources",
+        "description": "Pre-selected from the region. Adjust as needed; only checked sources are used.",
+        "data": {
+          "scope": "Sources"
+        }
       }
     },
     "error": {
@@ -126,7 +164,8 @@
       "cannot_connect": "Failed to connect. Please check and retry.",
       "already_added": "Already added",
       "cannot_remove_last": "At least one entry must remain",
-      "invalid_account": "The selected entry no longer exists"
+      "invalid_account": "The selected entry no longer exists",
+      "scope_required": "Select at least one region or source"
     }
   },
   "selector": {
@@ -134,28 +173,733 @@
       "options": {
         "kunlun_gas": "Kunlun Gas",
         "oil_price": "Fuel Price",
-        "daily_content": "Daily Content"
+        "daily_content": "Daily Content",
+        "disaster_warning": "Disaster warning"
       }
     }
   },
   "entity": {
     "sensor": {
-      "kunlun_gas_remote_meter_balance": { "name": "Meter balance" },
-      "kunlun_gas_owe_amount": { "name": "Amount owed" },
-      "kunlun_gas_account_balance": { "name": "Account balance" },
-      "kunlun_gas_meter_reading": { "name": "Meter reading" },
-      "kunlun_gas_last_communication": { "name": "Last communication" },
-      "kunlun_gas_latest_gas_fee": { "name": "Latest gas fee" },
-      "kunlun_gas_pay_permitted": { "name": "Payment permitted" },
-      "oil_price_gas92": { "name": "Gasoline 92#" },
-      "oil_price_gas95": { "name": "Gasoline 95#" },
-      "oil_price_gas98": { "name": "Gasoline 98#" },
-      "oil_price_die0": { "name": "Diesel 0#" },
-      "oil_price_adjust": { "name": "Price adjustment" },
-      "daily_content_hitokoto": { "name": "Daily quote" },
-      "daily_content_poetry": { "name": "Daily poetry" },
-      "daily_content_soul_soup": { "name": "Soul soup" },
-      "daily_content_history": { "name": "Today in history" }
+      "kunlun_gas_remote_meter_balance": {
+        "name": "Meter balance"
+      },
+      "kunlun_gas_owe_amount": {
+        "name": "Amount owed"
+      },
+      "kunlun_gas_account_balance": {
+        "name": "Account balance"
+      },
+      "kunlun_gas_meter_reading": {
+        "name": "Meter reading"
+      },
+      "kunlun_gas_last_communication": {
+        "name": "Last communication"
+      },
+      "kunlun_gas_latest_gas_fee": {
+        "name": "Latest gas fee"
+      },
+      "kunlun_gas_pay_permitted": {
+        "name": "Payment permitted"
+      },
+      "oil_price_gas92": {
+        "name": "Gasoline 92#"
+      },
+      "oil_price_gas95": {
+        "name": "Gasoline 95#"
+      },
+      "oil_price_gas98": {
+        "name": "Gasoline 98#"
+      },
+      "oil_price_die0": {
+        "name": "Diesel 0#"
+      },
+      "oil_price_adjust": {
+        "name": "Price adjustment"
+      },
+      "daily_content_hitokoto": {
+        "name": "Daily quote"
+      },
+      "daily_content_poetry": {
+        "name": "Daily poetry"
+      },
+      "daily_content_soul_soup": {
+        "name": "Soul soup"
+      },
+      "daily_content_history": {
+        "name": "Today in history"
+      },
+      "quake_warning": {
+        "name": "Earthquake warning",
+        "state_attributes": {
+          "title": {
+            "name": "Title"
+          },
+          "status": {
+            "name": "Status",
+            "state": {}
+          },
+          "announcedtime": {
+            "name": "Announced at"
+          },
+          "eventid": {
+            "name": "Event ID"
+          },
+          "identifier": {
+            "name": "Identifier"
+          },
+          "infotype": {
+            "name": "Info type",
+            "state": {}
+          },
+          "serial": {
+            "name": "Serial"
+          },
+          "origintime": {
+            "name": "Origin time"
+          },
+          "origin_time": {
+            "name": "Origin time"
+          },
+          "hypocenter": {
+            "name": "Hypocenter"
+          },
+          "epicenter_name": {
+            "name": "Epicenter"
+          },
+          "location": {
+            "name": "Location"
+          },
+          "latitude": {
+            "name": "Latitude"
+          },
+          "longitude": {
+            "name": "Longitude"
+          },
+          "depth": {
+            "name": "Depth"
+          },
+          "magunitude": {
+            "name": "Magnitude"
+          },
+          "magnitude": {
+            "name": "Magnitude"
+          },
+          "maxintensity": {
+            "name": "Max intensity"
+          },
+          "max_intensity": {
+            "name": "Max intensity"
+          },
+          "maxlgint": {
+            "name": "Max long-period intensity"
+          },
+          "accuracy": {
+            "name": "Accuracy"
+          },
+          "warnarea": {
+            "name": "Warn areas"
+          },
+          "issea": {
+            "name": "Sea event",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "isassumption": {
+            "name": "Assumed",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "iswarn": {
+            "name": "Warning",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "isfinal": {
+            "name": "Final",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "istraining": {
+            "name": "Training",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "iscancel": {
+            "name": "Cancelled",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "event_id": {
+            "name": "Event ID"
+          },
+          "province": {
+            "name": "Province"
+          },
+          "sub_source": {
+            "name": "Sub source"
+          },
+          "provinces": {
+            "name": "Provinces"
+          },
+          "province_count": {
+            "name": "Province count"
+          },
+          "created_at": {
+            "name": "Created at"
+          },
+          "recv_time": {
+            "name": "Received at"
+          },
+          "scope": {
+            "name": "Source",
+            "state": {
+              "cea": "China EEW",
+              "cea_pr": "Provincial EEW",
+              "cwa_eew": "Taiwan EEW",
+              "kma_eew": "KMA EEW",
+              "jma_eew": "JMA EEW",
+              "agg_early_est": "Global EEW aggregate",
+              "agg_usgs_shakealert": "USGS ShakeAlert",
+              "sasmex_warning": "SASMEX warning",
+              "sasmex_city": "SASMEX city warning",
+              "cenc": "CENC",
+              "jma_report": "JMA seismic report",
+              "cwa_report": "CWA report",
+              "usgs": "USGS",
+              "emsc": "EMSC",
+              "gfz": "GFZ",
+              "sasmex_report": "SASMEX report",
+              "bmkg": "BMKG",
+              "geonet": "GeoNet",
+              "usp": "USP",
+              "funvisis": "FUNVISIS",
+              "tmd": "Thai Meteorological Department",
+              "phivolcs": "PHIVOLCS",
+              "palert_eq": "P-Alert",
+              "jma_tsunami": "JMA tsunami warning",
+              "nmefc_tsunami": "NMEFC tsunami",
+              "noaa_tsunami": "NOAA tsunami",
+              "gdacs_tsunami": "GDACS tsunami",
+              "gdacs_tsunami_obs": "GDACS tsunami observations"
+            }
+          },
+          "cache_at": {
+            "name": "Cached at"
+          },
+          "raw_is_cancel": {
+            "name": "Raw cancellation flag",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "is_cancel": {
+            "name": "Cancellation flag",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "schema": {
+            "name": "Data schema"
+          },
+          "category": {
+            "name": "Category"
+          },
+          "source": {
+            "name": "Source"
+          },
+          "time": {
+            "name": "Time"
+          },
+          "raw": {
+            "name": "Raw payload"
+          },
+          "raw_schema": {
+            "name": "Raw data schema"
+          },
+          "raw_category": {
+            "name": "Raw category"
+          },
+          "raw_event_id": {
+            "name": "Raw event ID"
+          },
+          "raw_location": {
+            "name": "Raw location"
+          },
+          "raw_magnitude": {
+            "name": "Raw magnitude"
+          },
+          "raw_intensity": {
+            "name": "Raw intensity"
+          },
+          "raw_time": {
+            "name": "Raw time"
+          },
+          "raw_depth": {
+            "name": "Raw depth"
+          },
+          "raw_serial": {
+            "name": "Raw serial"
+          },
+          "raw_level": {
+            "name": "Raw level"
+          },
+          "raw_recv_time": {
+            "name": "Raw received at"
+          },
+          "raw_source": {
+            "name": "Raw source"
+          },
+          "intensity": {
+            "name": "Intensity"
+          },
+          "level": {
+            "name": "Level"
+          }
+        }
+      },
+      "quake_report": {
+        "name": "Earthquake report",
+        "state_attributes": {
+          "id": {
+            "name": "Event ID"
+          },
+          "eventid": {
+            "name": "Event ID"
+          },
+          "event_id": {
+            "name": "Event ID"
+          },
+          "md5": {
+            "name": "Checksum"
+          },
+          "type": {
+            "name": "Message type"
+          },
+          "origintime": {
+            "name": "Origin time"
+          },
+          "time": {
+            "name": "Origin time"
+          },
+          "announcedtime": {
+            "name": "Announced at"
+          },
+          "reporttime": {
+            "name": "Reported at"
+          },
+          "recvtime": {
+            "name": "Received at"
+          },
+          "recv_time": {
+            "name": "Received at"
+          },
+          "latitude": {
+            "name": "Latitude"
+          },
+          "longitude": {
+            "name": "Longitude"
+          },
+          "depth": {
+            "name": "Depth"
+          },
+          "magnitude": {
+            "name": "Magnitude"
+          },
+          "magunitude": {
+            "name": "Magnitude"
+          },
+          "placename": {
+            "name": "Location"
+          },
+          "location": {
+            "name": "Location"
+          },
+          "epicenterplace": {
+            "name": "Epicenter"
+          },
+          "epicenterlat": {
+            "name": "Epicenter latitude"
+          },
+          "epicenterlon": {
+            "name": "Epicenter longitude"
+          },
+          "epicenter_name": {
+            "name": "Epicenter"
+          },
+          "max_intensity": {
+            "name": "Max intensity"
+          },
+          "maxintensity": {
+            "name": "Max intensity"
+          },
+          "intensity": {
+            "name": "Intensity"
+          },
+          "serial": {
+            "name": "Serial"
+          },
+          "number": {
+            "name": "Number"
+          },
+          "description": {
+            "name": "Description"
+          },
+          "infotypename": {
+            "name": "Info type",
+            "state": {}
+          },
+          "info_type": {
+            "name": "Info type",
+            "state": {}
+          },
+          "hypocenter": {
+            "name": "Hypocenter"
+          },
+          "title": {
+            "name": "Title"
+          },
+          "cancelled": {
+            "name": "Cancelled",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "is_cancel": {
+            "name": "Cancelled",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "areas": {
+            "name": "Affected areas"
+          },
+          "province": {
+            "name": "Province"
+          },
+          "sub_source": {
+            "name": "Sub source"
+          },
+          "created_at": {
+            "name": "Created at"
+          },
+          "scope": {
+            "name": "Source",
+            "state": {
+              "cea": "China EEW",
+              "cea_pr": "Provincial EEW",
+              "cwa_eew": "Taiwan EEW",
+              "kma_eew": "KMA EEW",
+              "jma_eew": "JMA EEW",
+              "agg_early_est": "Global EEW aggregate",
+              "agg_usgs_shakealert": "USGS ShakeAlert",
+              "sasmex_warning": "SASMEX warning",
+              "sasmex_city": "SASMEX city warning",
+              "cenc": "CENC",
+              "jma_report": "JMA seismic report",
+              "cwa_report": "CWA report",
+              "usgs": "USGS",
+              "emsc": "EMSC",
+              "gfz": "GFZ",
+              "sasmex_report": "SASMEX report",
+              "bmkg": "BMKG",
+              "geonet": "GeoNet",
+              "usp": "USP",
+              "funvisis": "FUNVISIS",
+              "tmd": "Thai Meteorological Department",
+              "phivolcs": "PHIVOLCS",
+              "palert_eq": "P-Alert",
+              "jma_tsunami": "JMA tsunami warning",
+              "nmefc_tsunami": "NMEFC tsunami",
+              "noaa_tsunami": "NOAA tsunami",
+              "gdacs_tsunami": "GDACS tsunami",
+              "gdacs_tsunami_obs": "GDACS tsunami observations"
+            }
+          },
+          "cache_at": {
+            "name": "Cached at"
+          },
+          "raw_is_cancel": {
+            "name": "Raw cancellation flag",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "schema": {
+            "name": "Data schema"
+          },
+          "category": {
+            "name": "Category"
+          },
+          "source": {
+            "name": "Source"
+          },
+          "raw": {
+            "name": "Raw payload"
+          },
+          "raw_schema": {
+            "name": "Raw data schema"
+          },
+          "raw_category": {
+            "name": "Raw category"
+          },
+          "raw_event_id": {
+            "name": "Raw event ID"
+          },
+          "raw_location": {
+            "name": "Raw location"
+          },
+          "raw_magnitude": {
+            "name": "Raw magnitude"
+          },
+          "raw_intensity": {
+            "name": "Raw intensity"
+          },
+          "raw_time": {
+            "name": "Raw time"
+          },
+          "raw_depth": {
+            "name": "Raw depth"
+          },
+          "raw_serial": {
+            "name": "Raw serial"
+          },
+          "raw_level": {
+            "name": "Raw level"
+          },
+          "raw_recv_time": {
+            "name": "Raw received at"
+          },
+          "raw_source": {
+            "name": "Raw source"
+          },
+          "level": {
+            "name": "Level"
+          }
+        }
+      },
+      "tsunami_warning": {
+        "name": "Tsunami warning",
+        "state_attributes": {
+          "id": {
+            "name": "Message ID"
+          },
+          "event_id": {
+            "name": "Event ID"
+          },
+          "source": {
+            "name": "Source"
+          },
+          "kind": {
+            "name": "Kind"
+          },
+          "title": {
+            "name": "Title"
+          },
+          "region": {
+            "name": "Region"
+          },
+          "time": {
+            "name": "Issued at"
+          },
+          "recv_time": {
+            "name": "Received at"
+          },
+          "cancelled": {
+            "name": "Cancelled",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "level": {
+            "name": "Level"
+          },
+          "level_name": {
+            "name": "Level name"
+          },
+          "areas": {
+            "name": "Affected areas"
+          },
+          "scope": {
+            "name": "Source",
+            "state": {
+              "cea": "China EEW",
+              "cea_pr": "Provincial EEW",
+              "cwa_eew": "Taiwan EEW",
+              "kma_eew": "KMA EEW",
+              "jma_eew": "JMA EEW",
+              "agg_early_est": "Global EEW aggregate",
+              "agg_usgs_shakealert": "USGS ShakeAlert",
+              "sasmex_warning": "SASMEX warning",
+              "sasmex_city": "SASMEX city warning",
+              "cenc": "CENC",
+              "jma_report": "JMA seismic report",
+              "cwa_report": "CWA report",
+              "usgs": "USGS",
+              "emsc": "EMSC",
+              "gfz": "GFZ",
+              "sasmex_report": "SASMEX report",
+              "bmkg": "BMKG",
+              "geonet": "GeoNet",
+              "usp": "USP",
+              "funvisis": "FUNVISIS",
+              "tmd": "Thai Meteorological Department",
+              "phivolcs": "PHIVOLCS",
+              "palert_eq": "P-Alert",
+              "jma_tsunami": "JMA tsunami warning",
+              "nmefc_tsunami": "NMEFC tsunami",
+              "noaa_tsunami": "NOAA tsunami",
+              "gdacs_tsunami": "GDACS tsunami",
+              "gdacs_tsunami_obs": "GDACS tsunami observations"
+            }
+          },
+          "cache_at": {
+            "name": "Cached at"
+          },
+          "code": {
+            "name": "Code"
+          },
+          "batch": {
+            "name": "Batch"
+          },
+          "level_text": {
+            "name": "Level"
+          },
+          "color": {
+            "name": "Color"
+          },
+          "area": {
+            "name": "Area"
+          },
+          "org": {
+            "name": "Issuer"
+          },
+          "update_time": {
+            "name": "Updated at"
+          },
+          "alarm_time": {
+            "name": "Issued at"
+          },
+          "html_url": {
+            "name": "Details URL"
+          },
+          "icon": {
+            "name": "Warning icon"
+          },
+          "register": {
+            "name": "Registered at"
+          },
+          "expires_at": {
+            "name": "Expires at"
+          },
+          "is_training": {
+            "name": "Training"
+          },
+          "training": {
+            "name": "Training"
+          },
+          "update_ts": {
+            "name": "Updated at"
+          },
+          "alarm_ts": {
+            "name": "Issued at"
+          },
+          "time_ts": {
+            "name": "Time"
+          },
+          "raw_is_cancel": {
+            "name": "Raw cancellation flag",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "is_cancel": {
+            "name": "Cancellation flag",
+            "state": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "schema": {
+            "name": "Data schema"
+          },
+          "category": {
+            "name": "Category"
+          },
+          "raw": {
+            "name": "Raw payload"
+          },
+          "raw_schema": {
+            "name": "Raw data schema"
+          },
+          "raw_category": {
+            "name": "Raw category"
+          },
+          "raw_event_id": {
+            "name": "Raw event ID"
+          },
+          "raw_location": {
+            "name": "Raw location"
+          },
+          "raw_magnitude": {
+            "name": "Raw magnitude"
+          },
+          "raw_intensity": {
+            "name": "Raw intensity"
+          },
+          "raw_time": {
+            "name": "Raw time"
+          },
+          "raw_depth": {
+            "name": "Raw depth"
+          },
+          "raw_serial": {
+            "name": "Raw serial"
+          },
+          "raw_level": {
+            "name": "Raw level"
+          },
+          "raw_recv_time": {
+            "name": "Raw received at"
+          },
+          "raw_source": {
+            "name": "Raw source"
+          },
+          "location": {
+            "name": "Location"
+          },
+          "magnitude": {
+            "name": "Magnitude"
+          },
+          "intensity": {
+            "name": "Intensity"
+          },
+          "depth": {
+            "name": "Depth"
+          },
+          "serial": {
+            "name": "Serial"
+          }
+        }
+      }
     }
   }
 }
