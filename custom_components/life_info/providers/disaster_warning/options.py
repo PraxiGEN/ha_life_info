@@ -27,6 +27,8 @@ from .const import (
     SCOPE_SELECTOR_OPTIONS,
     SCOPE_TO_CATEGORY,
     SERVICE_NAME,
+    scope_alias,
+    scope_from_alias,
 )
 
 def _region_selector() -> SelectSelector:
@@ -42,15 +44,13 @@ def _region_selector() -> SelectSelector:
     )
 
 def _scope_selector() -> SelectSelector:
-    """二级：数据源细选，默认勾选区域展开的源."""
+    """二级：数据源细选，标签走 selector.scope 翻译."""
     return SelectSelector(
         SelectSelectorConfig(
-            options=[
-                SelectOptionDict(value=option["value"], label=option["label"])
-                for option in SCOPE_SELECTOR_OPTIONS
-            ],
+            options=list(SCOPE_SELECTOR_OPTIONS),
             mode=SelectSelectorMode.DROPDOWN,
             multiple=True,
+            translation_key="scope",
         )
     )
 
@@ -100,9 +100,9 @@ class DisasterWarningOptionsFlow(LifeInfoOptionsFlow):
         region = getattr(self, "_disaster_region", stored_region)
         if user_input is not None:
             scopes = [
-                str(scope)
+                scope_from_alias(str(scope))
                 for scope in user_input.get(CONF_SCOPE) or []
-                if scope in SCOPE_TO_CATEGORY
+                if scope_from_alias(str(scope)) in SCOPE_TO_CATEGORY
             ]
             if not scopes:
                 errors["base"] = "scope_required"
@@ -114,19 +114,20 @@ class DisasterWarningOptionsFlow(LifeInfoOptionsFlow):
 
         if user_input is not None:
             default_scopes = [
-                str(scope)
+                scope_alias(str(scope))
                 for scope in user_input.get(CONF_SCOPE) or []
                 if scope in SCOPE_TO_CATEGORY
             ]
         elif region == stored_region and stored.get(CONF_SCOPE):
             default_scopes = [
-                str(scope)
+                scope_alias(str(scope))
                 for scope in stored[CONF_SCOPE]
                 if scope in SCOPE_TO_CATEGORY
             ]
         else:
             default_scopes = [
-                scope for scope in REGION_GROUPS.get(region, ())
+                scope_alias(scope)
+                for scope in REGION_GROUPS.get(region, ())
                 if scope in SCOPE_TO_CATEGORY
             ]
         return self.async_show_form(
